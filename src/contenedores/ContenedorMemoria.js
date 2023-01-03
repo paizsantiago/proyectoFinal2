@@ -74,8 +74,9 @@ class ContenedorMemoria {
 
     deleteById = async (id) =>{
         try {
-            id--;
-            this.arrayMemoria.splice(id, 1);
+            const idParseado = parseInt(id);
+            idParseado--;
+            this.arrayMemoria.splice(idParseado, 1);
             return this.arrayMemoria;
         } catch (error) {
             console.log(error);

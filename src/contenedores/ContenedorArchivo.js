@@ -89,10 +89,11 @@ class ContenedorArchivo {
 
     deleteById = async (id) =>{
         try {
+            const idParseado = parseInt(id);
             const resultado = await fs.readFile(this.nombreArchivo, 'utf-8');
             const obj = JSON.parse(resultado);
-            id--;
-            obj.splice(id, 1);
+            idParseado--;
+            obj.splice(idParseado, 1);
             await fs.writeFile(this.nombreArchivo, JSON.stringify(obj, null, 2)) 
             return obj;
         } catch (error) {

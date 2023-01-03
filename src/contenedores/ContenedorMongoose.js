@@ -84,6 +84,16 @@ class ContenedorMongoose {
             console.log(error);
         }
     };
+
+    deleteById = async (id) =>{
+        try {
+            await this.collectionDB();
+            await this.collectionDB.deleteOne({_id: id});
+            return this.collectionDB.find({});
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }
 
 export default ContenedorMongoose;

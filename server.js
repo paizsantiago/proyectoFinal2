@@ -69,14 +69,14 @@ routerProducts.delete('/:id',
         },async (req, res) =>{
             const {id} = req.params;
             const productosArray = await producto.getAll();
-            const productoPedido = await producto.deleteById(parseInt(id));
+            const productoPedido = await producto.deleteById(id);
             if (productosArray.length < id) {
                 res.json({error: "true", msg: "El producto no existe"})
             } else {
                 res.json({
                     success: "true",
                     msg: "Producto eliminado",
-                    productList: productoPedido
+                    newProductList: productoPedido
                 });
             }
 });
