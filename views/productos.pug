@@ -1,0 +1,19 @@
+html
+    head
+        title='Productos'
+        style
+            include styles.css
+    body
+        nav 
+            a(href="/") Home 
+        h1="Listado de productos"
+        div
+        if productsExist 
+            for item in products
+                div(class="producto")
+                    p=item.nombre 
+                    p=`precio: $${item.precio}`
+                    p=`descripcion: ${item.descripcion}`
+                    img(class='product-img', src=item.thumbnail)
+        else 
+            h2= "Ups, no se han encontrado productos"

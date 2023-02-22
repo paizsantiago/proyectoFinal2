@@ -1,0 +1,16 @@
+html
+    head
+        title='login'
+        style
+            include styles.css
+    body
+        nav 
+            a(href="/api/productos") Productos  
+        h1="Home"
+            h1=`Bienvenido ${user.username}`
+            form(action="/infoUser" method="GET") 
+                button Informacion del usuario
+            form(action="/logout" method="POST") 
+                button Cerrar sesion
+
+        

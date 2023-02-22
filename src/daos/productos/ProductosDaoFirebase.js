@@ -1,6 +1,6 @@
-import ContenedorFirebase from '../../contenedores/ContenedorFirebase.js'
+const ContenedorFirebase = require('../../contenedores/ContenedorFirebase');
 
-const configPrivi = '../../../privi.json';
+const configPrivi = '../../privi.json';
 const collection = 'productos';
 
 class ProductosDaoFirebase extends ContenedorFirebase{
@@ -9,4 +9,4 @@ class ProductosDaoFirebase extends ContenedorFirebase{
    }
 }
 
-export default ProductosDaoFirebase;
+module.exports = {ProductosDaoFirebase};

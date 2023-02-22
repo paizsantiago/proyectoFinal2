@@ -1,24 +1,23 @@
-import { connect } from "mongoose";
+const {connectMG}= require('../connection')
 
 class ContenedorMongoose {
-    constructor(ruta, collectionDB){
-        this.ruta = ruta;
+    constructor(collectionDB){
         this.collectionDB = collectionDB; 
+        connectMG();
     }
 
-    async connectMG(){
-        try {
-            await connect(this.ruta, {useNewUrlParser: true});
-        } catch (e) {
-            console.log(e);
-            throw 'cannot connect to the db';
-        }
-    }
+    // async connectMG(){
+    //     try {
+    //         await connect(this.ruta, {useNewUrlParser: true});
+    //     } catch (e) {
+    //         console.log(e);
+    //         throw 'cannot connect to the db';
+    //     }
+    // }
 
     save = async (objeto) =>{
         try {
-            await this.connectMG();
-            const objetoAgregar = new this.collectionDB({...objeto});
+            const objetoAgregar = await new this.collectionDB({...objeto});
             objetoAgregar.save();
         } catch (error) {
             console.log(error)
@@ -27,7 +26,6 @@ class ContenedorMongoose {
 
     getAll = async () =>{
         try {
-            await this.connectMG();
             const allProducts = await this.collectionDB.find({});
             return allProducts;
         } catch (error) {
@@ -37,7 +35,6 @@ class ContenedorMongoose {
 
     getById = async (idNumber) =>{
         try {
-            await this.connectMG();
             const productoPedido = await this.collectionDB.find({ _id: idNumber});
             return productoPedido[0];
         } catch (error) {
@@ -47,7 +44,6 @@ class ContenedorMongoose {
 
     updateById = async (id, nombre, precio, thumbnail, descripcion, codigo, timestamp, stock) =>{
        try {
-        await this.connectMG();
         await this.collectionDB.updateOne(
             {_id: id},
             {
@@ -71,7 +67,6 @@ class ContenedorMongoose {
 
     updateCartById = async (id, timestamp, productos) => {
         try {
-            await this.connectMG();
             await this.collectionDB.updateOne(
                 {_id: id},
                 {
@@ -96,4 +91,4 @@ class ContenedorMongoose {
     }
 }
 
-export default ContenedorMongoose;
+module.exports = ContenedorMongoose;

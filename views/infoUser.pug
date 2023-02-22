@@ -1,0 +1,15 @@
+html
+    head
+        title='User info'
+        style
+            include styles.css
+    body
+        nav 
+            a(href="/") Home 
+        h1="Informacion del usuario"
+        div
+            h2=`Nombre: ${infoUser.nombre}`
+            h2=`Email: ${infoUser.email}`
+            h2=`Dirección: ${infoUser.direccion}`
+            h2=`Edad: ${infoUser.edad}`
+            h2=`Telefono: ${infoUser.telefono}`

@@ -1,14 +1,16 @@
-import ProductosDaoArchivo from "./productos/ProductosDaoArchivos.js";
-import CarritosDaoArchivo from "./carritos/CarritosDaoArchivo.js";
-import ProductosDaoMongoose from "./productos/ProductosDaoMongoose.js";
-import CarritosDaoMongoose from "./carritos/CarritosDaoMongoose.js";
-import ProductosDaoMemoria from "./productos/ProductosDaoMemoria.js";
-import CarritosDaoMemoria from "./carritos/CarritosDaoMemoria.js";
-import ProductosDaoFirebase from "./productos/ProductosDaoFirebase.js";
-import CarritosDaoFirebase from "./carritos/CarritosDaoFirebase.js";
-import { config } from "dotenv";
+const {ProductosDaoArchivo} = require('./productos/ProductosDaoArchivos');
+const {CarritosDaoArchivo} = require('./carritos/CarritosDaoArchivo');
+const {ProductosDaoMongoose} = require('./productos/ProductosDaoMongoose');
+const {CarritosDaoMongoose} = require('./carritos/CarritosDaoMongoose');
+const {ProductosDaoMemoria} = require('./productos/ProductosDaoMemoria');
+const {CarritosDaoMemoria} = require('./carritos/CarritosDaoMemoria');
+const {ProductosDaoFirebase} = require('./productos/ProductosDaoFirebase');
+const {CarritosDaoFirebase} = require('./carritos/CarritosDaoFirebase');
 
-config();
+// require('dotenv').config()
+const { config } = require('dotenv');
+
+config()
 
 const instancias = [
     {
@@ -60,4 +62,4 @@ const resultado = {
     [instancia[1].descripcion]: instancia[1].nombre,
 }
 
-export default resultado;
+module.exports = {resultado}

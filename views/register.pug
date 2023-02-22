@@ -1,0 +1,20 @@
+html
+    head
+        title='register'
+        style
+            include styles.css
+    body
+        h1="Registrate gratis"
+        div
+            form(action="/register" method="POST") 
+                input(type="text" name="nombre" placeholder="nombre")
+                input(type="text" name="username" placeholder="email")
+                input(type="password" name="password" placeholder="contraseña")
+                input(type="text" name="direccion" placeholder="direccion")
+                input(type="number" name="edad" placeholder="edad")
+                input(type="number" name="telefono" placeholder="telefono")
+                input(type="text" name="avatar" placeholder="url avatar")
+                input(type="submit" value="registrarse")
+        div 
+            p=`Ya tienes cuenta?`
+            a(href="/login") Iniciar sesion 

@@ -1,6 +1,6 @@
 
-import { Schema, model } from 'mongoose';
-import ContenedorMongoose from '../../contenedores/ContenedorMongoose.js';
+const { Schema , model } = require('mongoose');
+const ContenedorMongoose = require('../../contenedores/ContenedorMongoose')
 
 const productsSchema = new Schema({
     nombre: {type: String, required: true, max:100},   
@@ -14,12 +14,11 @@ const productsSchema = new Schema({
 
 const productosDB = model('productos', productsSchema);
 
-const ruta = "mongodb+srv://santiagopaiz:7pUEtOwIzTYvQyOF@cluster0.cpghy3l.mongodb.net/?retryWrites=true&w=majority";
 
 class ProductosDaoMongoose extends ContenedorMongoose{
     constructor(){
-        super(ruta, productosDB);
+        super(productosDB);
     }
 }
 
-export default ProductosDaoMongoose;
+module.exports = {ProductosDaoMongoose};

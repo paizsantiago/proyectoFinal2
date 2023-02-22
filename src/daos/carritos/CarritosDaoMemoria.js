@@ -1,4 +1,4 @@
-import ContenedorMemoria from "../../contenedores/ContenedorMemoria.js";
+const ContenedorMemoria = require('../../contenedores/ContenedorMemoria');
 
 const arrayMemoria = [];
 
@@ -8,4 +8,4 @@ class CarritosDaoMemoria extends ContenedorMemoria{
     }
 }
 
-export default CarritosDaoMemoria;
+module.exports = {CarritosDaoMemoria};

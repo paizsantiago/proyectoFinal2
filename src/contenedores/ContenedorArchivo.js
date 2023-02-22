@@ -1,4 +1,5 @@
-import {promises as fs} from 'fs';
+const  fs  = require('fs');
+const { logger, loggerError } = require('../../logger/loggerConfig');
 
 class ContenedorArchivo {
     constructor(nombreArchivo){
@@ -26,7 +27,7 @@ class ContenedorArchivo {
 
     getById  = async (id) =>{
         try {
-            const resultado = await fs.readFile(this.nombreArchivo, 'utf-8');
+            const resultado = await fs.promises.readFile(this.nombreArchivo, 'utf-8');
             const obj = JSON.parse(resultado);
             const objetoPedido = obj.find(item => item.id === id);
             if (objetoPedido != undefined) {
@@ -45,7 +46,7 @@ class ContenedorArchivo {
             if (isInProductList != undefined) {
                 const objeto = { id: id, nombre: nombre, precio: precio, thumbnail: thumbnail, descripcion: descripcion, codigo: codigo, timestamp: timestamp, stock: stock};
                 productos[indexItem] = objeto;
-                await fs.writeFile(
+                await fs.promises.writeFile(
                     this.nombreArchivo,
                     JSON.stringify(productos, null, 2)
                 );
@@ -67,7 +68,7 @@ class ContenedorArchivo {
             if (isInProductList != undefined) {
                 const objeto = { id: id, timestamp:timestamp, productos: products};
                 productos[indexItem] = objeto;
-                await fs.writeFile(
+                await fs.promises.writeFile(
                     this.nombreArchivo,
                     JSON.stringify(productos, null, 2)
                 );
@@ -83,29 +84,35 @@ class ContenedorArchivo {
     
 
 
-    getAll = async () => JSON.parse(await fs.readFile(this.nombreArchivo));
+    getAll = async () =>  {
+        try {
+           return JSON.parse(await fs.promises.readFile(this.nombreArchivo, 'utf-8'))
+        } catch (error) {
+            loggerError.error({msg: `${error}`})
+        }
+    };
 
     
 
     deleteById = async (id) =>{
         try {
             const idParseado = parseInt(id);
-            const resultado = await fs.readFile(this.nombreArchivo, 'utf-8');
+            const resultado = await fs.promises.readFile(this.nombreArchivo, 'utf-8');
             const obj = JSON.parse(resultado);
             idParseado--;
             obj.splice(idParseado, 1);
-            await fs.writeFile(this.nombreArchivo, JSON.stringify(obj, null, 2)) 
+            await fs.promises.writeFile(this.nombreArchivo, JSON.stringify(obj, null, 2)) 
             return obj;
         } catch (error) {
-            console.log("Error id no encontrado");
+            logger.error({msg: `${error}`})
         }
     }
 
     deteleAll = async () =>{
-       await fs.writeFile(this.nombreArchivo, "[]");
+       await fs.promises.writeFile(this.nombreArchivo, "[]");
     }
 
 }
 
 
-export default ContenedorArchivo;
+module.exports = ContenedorArchivo;

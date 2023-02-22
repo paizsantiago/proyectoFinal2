@@ -1,7 +1,5 @@
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import { doc, getDoc } from "firebase/firestore";
 
+const { getFirestore } = require("firebase-admin/firestore")
 
 class ContenedorFirebase {
 
@@ -11,27 +9,37 @@ class ContenedorFirebase {
     }
 
     inicializar = async () =>{
+        const admin = await require('firebase-admin');
+        const serverAccount = await require(this.configPrivi);
         //inicializo app
         admin.initializeApp({
-            credential: admin.credential.cert(this.configPrivi),
+            credential: await admin.credential.cert(serverAccount),
         })
     }
 
-    referenciaDB = () =>{
+    save = async (objeto) =>{
+        await this.inicializar();
         const db = getFirestore();
-        return db;
+        await db.collection(this.collection).doc().set(objeto);
     }
 
-    // save = async (objeto) =>{
-    //     await this.inicializar();
-    //     const db = getFirestore();
-    //     // await db.collection(this.collection).doc().set(objeto);
-    //     // console.log("ghola")
-    //     console.log(db)
-    // }
+    getAll = async () =>{
+        await this.inicializar();
+        const db = getFirestore();
+        const res = await db.collection(this.collection).get()
+        let arrayRes = res.docs.map((item)=>{
+            return {id: item.id, ...item.data()}
+        })
+        return arrayRes;
+    }
 
+    getById = async (id) =>{
+        const db = getFirestore();
+        const res = await db.collection(this.collection).doc(id);
+        console.log(res);
+    }
 
 
 }
 
-export default ContenedorFirebase;
+module.exports = ContenedorFirebase;
