@@ -1,7 +1,8 @@
+const Usuarios = require("../models/usuario");
 const {resultado} = require("../src/daos/index")
 const producto = new resultado.producto();
 const carrito = new resultado.carrito();
-const Usuarios = require("../models/usuario")
+
 
 const getHome = (req, res) =>{
     const {nombre} = req.user
@@ -27,7 +28,7 @@ const getProductos = async (req, res) =>{
         }
     }    
     
-const  getHomeId = async (req, res) =>{
+const  getProductoId = async (req, res) =>{
         const {id} = req.params;
         const productosArray = await producto.getAll();
         const productoPedido = await producto.getById(id);
@@ -46,10 +47,6 @@ const getRegister = (req, res)=>{
       }
 }
 
-const postRegister = (req, res)=>{
-    // console.log(req.body);
-}
-
 const postLogout = (req, res)=>{
     req.session.destroy((error) =>{
         if (error) {
@@ -66,13 +63,53 @@ const getInfoUser = async (req, res) =>{
     res.render("infoUser.pug" , {infoUser})
 }
 
+const getCarrito = async (req, res)=>{
+        const username = req.user.email;
+        const user = await Usuarios.find({email: username});
+        const idCart = user[0].carrito._id;
+        const carritoUsuario = await carrito.getById(idCart);
+        const productsCart = carritoUsuario.productos;
+        productsCart.length > 0 ? productsExist = true : productsExist = false;
+        res.render("carrito.pug", {productsExist: productsExist, products: productsCart})
+}
+
+const postProductCart = async (req, res)=>{
+    const {id} = req.params;
+    const username = req.user.email;
+    const user = await Usuarios.find({email: username});
+    const carritoUserID = user[0].carrito._id; 
+    const carritoUserTimestamp = user[0].carrito.timestamp; 
+    const carritoDB = await carrito.getById(carritoUserID);
+    let newProductos = carritoDB.productos;
+    const productoPedido = await producto.getById(id);
+    newProductos = [...newProductos, productoPedido];
+    await carrito.updateCartById(carritoUserID, carritoUserTimestamp, newProductos);
+    res.redirect('/api/productos');
+}
+
+const postActualizarCarrito = async (req, res)=>{
+    const {id} = req.params;
+    const username = req.user.email;
+    const user = await Usuarios.find({email: username});
+    const carritoUserID = user[0].carrito._id; 
+    const carritoUserTimestamp = user[0].carrito.timestamp; 
+    const carritoDB = await carrito.getById(carritoUserID);
+    let carritoActualizado;
+    let newProductos = carritoDB.productos;
+    newProductos.length === 1 ? carritoActualizado = [] : carritoActualizado = newProductos.find((item) => item._id !== id);
+    await carrito.updateCartById(carritoUserID, carritoUserTimestamp, carritoActualizado);
+    res.redirect('/api/carrito');
+}
+
 module.exports ={
     getHome,
     getProductos,
-    getHomeId,
+    getProductoId,
     getRegister,
-    postRegister,
     postLogout,
     getLogin,
     getInfoUser,
+    getCarrito,
+    postProductCart,
+    postActualizarCarrito
 }

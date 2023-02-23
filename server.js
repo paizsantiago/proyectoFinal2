@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const {getProductos, getHomeId, getRegister, postRegister, getHome, postLogout, getLogin, getInfoUser} = require("./routes/routes");
+const {getProductos, getRegister, getHome, postLogout, getLogin, getInfoUser, getCarrito, getProductoId, postProductCart, postActualizarCarrito} = require("./routes/routes");
 const { loggerWarn } = require("./logger/loggerConfig");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
@@ -10,6 +10,8 @@ const MongoStore = require("connect-mongo");
 const mongoURL = process.env.MONGOURL;
 const Usuarios = require("./models/usuario")
 const PORT = process.env.PORT || 8080;
+const {resultado} = require("./src/daos/index");
+const carrito = new resultado.carrito();
 
 const { Router } = express;
 
@@ -25,8 +27,6 @@ app.set("view engine", "pug");
 app.set("views", "./views");
 
 app.use('/api/productos', routerProducts);
-app.use('/api/carrito', routerCarrito);
-
 
 
 let isAdmin = true; // boolean para verificar los roles del usuario, al ser true esta permitido que el mismo ingrese en todos los metodos, de lo contrario solo podra ingresar a ciertos metodos.
@@ -96,7 +96,7 @@ function isValidPassword(user, password) {
         passReqToCallback: true,
       },
       (req, username, password, done) => {
-        Usuarios.findOne({ email: username }, function (err, user) {
+        Usuarios.findOne({ email: username }, async function (err, user) {
           if (err) {
             console.log("Error in SignUp: " + err);
             return done(err);
@@ -106,7 +106,10 @@ function isValidPassword(user, password) {
             errorPassport = "User already exists";
             return done(null, false);
           }
-  
+
+          const timestamp = Date.now()
+          const idCarrito = await carrito.save({timestamp})
+
           const newUser = {
             nombre: req.body.nombre,
             email: username,
@@ -114,7 +117,8 @@ function isValidPassword(user, password) {
             direccion: req.body.direccion,
             edad: req.body.edad, 
             telefono: req.body.telefono,
-            avatar: req.body.avatar
+            avatar: req.body.avatar,
+            carrito: idCarrito,
           };
   
           Usuarios.create(newUser, (err, userWithId) => {
@@ -185,7 +189,7 @@ app.get("/infoUser", getInfoUser);
 
 routerProducts.get('/', getProductos);
 
-routerProducts.get('/:id', getHomeId);
+routerProducts.get('/:id', getProductoId);
 
 routerProducts.delete('/:id', 
         (req, res, next) =>{
@@ -255,43 +259,40 @@ routerProducts.put('/:id',
 
 //rutas carrito
 
-routerCarrito.post('/', async (req, res)=>{
-    const timestamp = new Date();
-    const newCarrito = {timestamp: timestamp, productos: []};
-    await carrito.save(newCarrito);
-    const allCarts = await carrito.getAll();
-    res.json({succes: true, msg: "Carrito creado con exito", cartID: allCarts.length})
-})
+// routerCarrito.post('/', async (req, res)=>{
+//     const timestamp = new Date();
+//     const newCarrito = {timestamp: timestamp, productos: []};
+//     await carrito.save(newCarrito);
+//     const allCarts = await carrito.getAll();
+//     res.json({succes: true, msg: "Carrito creado con exito", cartID: allCarts.length})
+// })
 
-routerCarrito.delete('/', async (req, res)=>{
-    await carrito.deteleAll();
-    res.json({succes: true, msg: "Se eliminaron todos los carritos"})
-})
+// routerCarrito.delete('/', async (req, res)=>{
+//     await carrito.deteleAll();
+//     res.json({succes: true, msg: "Se eliminaron todos los carritos"})
+// })
 
-routerCarrito.get('/:id/productos', async (req, res)=>{
-    try {
-        const {id} = req.params;
-        const allCarts = await carrito.getAll();
-        const productsCart = allCarts.find((item) => item.id === id);
-        res.json({cartID: id, productList: productsCart.productos})
-    } catch (error) {
-        res.json({error: true, msg: "Carrito no encontrado"});
-    }
-})
 
-routerCarrito.post('/:id/productos/:id_prod' , async (req, res)=>{
-        const {id, id_prod} = req.params;
-        const productoPedido = await producto.getById(id_prod);
-        if (productoPedido != null) {
-            const allCarts = await carrito.getAll();
-            const cartPedido = allCarts.find((item) => item.id === id);
-            const newProductList = [...cartPedido.productos, productoPedido];
-            carrito.updateCartById(id, cartPedido.timestamp, newProductList);
-            res.json({succes: true, msg: "Producto añadido al carrito!"})
-        } else {
-            res.json({error: true, msg: "Producto no encontrado"})
-        }
-})
+
+app.get('/api/carrito', getCarrito);
+
+app.post('/api/carrito/:id', postProductCart)
+
+app.post('/api/newCarrito/:id',  postActualizarCarrito)
+
+// routerCarrito.post('/:id/productos/:id_prod' , async (req, res)=>{
+//         const {id, id_prod} = req.params;
+//         const productoPedido = await producto.getById(id_prod);
+//         if (productoPedido != null) {
+//             const allCarts = await carrito.getAll();
+//             const cartPedido = allCarts.find((item) => item.id === id);
+//             const newProductList = [...cartPedido.productos, productoPedido];
+//             carrito.updateCartById(id, cartPedido.timestamp, newProductList);
+//             res.json({succes: true, msg: "Producto añadido al carrito!"})
+//         } else {
+//             res.json({error: true, msg: "Producto no encontrado"})
+//         }
+// })
 
 routerCarrito.delete('/:id/productos/:id_prod' , async (req, res)=>{
     const {id, id_prod} = req.params;

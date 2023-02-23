@@ -1,13 +1,13 @@
 html
     head
-        title='Productos'
+        title='Carrito'
         style
             include styles.css
     body
         nav 
             a(href="/") Home 
-            a(href="/api/carrito") Carrito 
-        h1="Listado de productos"
+            a(href="/api/productos") Productos 
+        h1="Carrito"
         div
         if productsExist 
             for item in products
@@ -16,7 +16,7 @@ html
                     p=`precio: $${item.precio}`
                     p=`descripcion: ${item.descripcion}`
                     img(class='product-img', src=item.thumbnail)
-                    form(action=`/api/carrito/${item._id}` method="POST") 
-                        input(type="submit" value="Añadir al carrito")  
+                form(action=`/api/newCarrito/${item._id}` method="POST") 
+                    input(type="submit" value="Eliminar del carrito")
         else 
             h2= "Ups, no se han encontrado productos"

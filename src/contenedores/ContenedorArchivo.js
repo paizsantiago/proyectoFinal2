@@ -21,7 +21,7 @@ class ContenedorArchivo {
             let newData = [...fileData, objeto]
             await fs.writeFile(this.nombreArchivo, JSON.stringify(newData, null, 2));
         } catch (error) {
-            console.log(error);
+            logger.error({msg: `${error}`})
         }
     }
 
@@ -34,7 +34,7 @@ class ContenedorArchivo {
                 return objetoPedido;
             }
         } catch (error) {
-            console.log("Error");
+            logger.error({msg: `${error}`})
         }
     }
 
@@ -55,7 +55,7 @@ class ContenedorArchivo {
                 return false;
             }
         } catch (error) {
-            console.log("error");
+            logger.error({msg: `${error}`})
         }
     };
 
@@ -77,7 +77,7 @@ class ContenedorArchivo {
                 return false;
             }
         } catch (error) {
-            console.log("error");
+            logger.error({msg: `${error}`})
         }
     };
 

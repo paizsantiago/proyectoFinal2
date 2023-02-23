@@ -8,6 +8,7 @@ const UsuarioSchema = new mongoose.Schema({
     edad: {type: Number, required: true, max:100},
     telefono: {type: Number, required: true},
     avatar: {type: String, required: true},
+    carrito:{type: Object}
 })
 
 const Usuarios = mongoose.model("usuarios", UsuarioSchema);

@@ -1,4 +1,5 @@
 const {connectMG}= require('../connection')
+const { loggerError } = require('../../logger/loggerConfig');
 
 class ContenedorMongoose {
     constructor(collectionDB){
@@ -6,21 +7,13 @@ class ContenedorMongoose {
         connectMG();
     }
 
-    // async connectMG(){
-    //     try {
-    //         await connect(this.ruta, {useNewUrlParser: true});
-    //     } catch (e) {
-    //         console.log(e);
-    //         throw 'cannot connect to the db';
-    //     }
-    // }
-
     save = async (objeto) =>{
         try {
             const objetoAgregar = await new this.collectionDB({...objeto});
             objetoAgregar.save();
+            return objetoAgregar;
         } catch (error) {
-            console.log(error)
+            logger.error({msg: `${error}`})
         }
     }
 
@@ -29,7 +22,7 @@ class ContenedorMongoose {
             const allProducts = await this.collectionDB.find({});
             return allProducts;
         } catch (error) {
-            console.log(error)
+            logger.error({msg: `${error}`})
         }
     }
 
@@ -38,7 +31,7 @@ class ContenedorMongoose {
             const productoPedido = await this.collectionDB.find({ _id: idNumber});
             return productoPedido[0];
         } catch (error) {
-            console.log(error);
+            logger.error({msg: `${error}`})
         }
     }
 
@@ -60,14 +53,14 @@ class ContenedorMongoose {
         )
         return true;
        } catch (error) {
-        console.log(error)
+        logger.error({msg: `${error}`})
         return false;
        }
     }
 
     updateCartById = async (id, timestamp, productos) => {
         try {
-            await this.collectionDB.updateOne(
+            const verificar = await this.collectionDB.updateOne(
                 {_id: id},
                 {
                     $set:{
@@ -75,8 +68,13 @@ class ContenedorMongoose {
                         productos: productos
                     }
                 })
+            
+            if (verificar.matchedCount == 1) {
+                const newCarrito = await this.getById(id);
+                return newCarrito;
+            }
         } catch (error) {
-            console.log(error);
+            logger.error({msg: `${error}`})
         }
     };
 
@@ -86,7 +84,7 @@ class ContenedorMongoose {
             await this.collectionDB.deleteOne({_id: id});
             return this.collectionDB.find({});
         } catch (error) {
-            console.log(error)
+            logger.error({msg: `${error}`})
         }
     }
 }
