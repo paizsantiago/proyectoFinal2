@@ -1,6 +1,7 @@
 const express = require("express");
+require('dotenv').config()
 const bodyParser = require("body-parser");
-const {getProductos, getRegister, getHome, postLogout, getLogin, getInfoUser, getCarrito, getProductoId, postProductCart, postActualizarCarrito} = require("./routes/routes");
+const {getProductos, getRegister, getHome, postLogout, getLogin, getInfoUser, getCarrito, getProductoId, postProductCart, postActualizarCarrito, postFinalizarCompra} = require("./routes/routes");
 const { loggerWarn } = require("./logger/loggerConfig");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
@@ -11,6 +12,7 @@ const mongoURL = process.env.MONGOURL;
 const Usuarios = require("./models/usuario")
 const PORT = process.env.PORT || 8080;
 const {resultado} = require("./src/daos/index");
+const { mailRegister } = require("./nodemailer/nodemailer");
 const carrito = new resultado.carrito();
 
 const { Router } = express;
@@ -120,13 +122,14 @@ function isValidPassword(user, password) {
             avatar: req.body.avatar,
             carrito: idCarrito,
           };
+
+          mailRegister(newUser);
   
           Usuarios.create(newUser, (err, userWithId) => {
             if (err) {
               console.log("Error in Saving user: " + err);
               return done(err);
             }
-            console.log(newUser);
             console.log("User Registration succesful");
             return done(null, userWithId);
           });
@@ -259,53 +262,14 @@ routerProducts.put('/:id',
 
 //rutas carrito
 
-// routerCarrito.post('/', async (req, res)=>{
-//     const timestamp = new Date();
-//     const newCarrito = {timestamp: timestamp, productos: []};
-//     await carrito.save(newCarrito);
-//     const allCarts = await carrito.getAll();
-//     res.json({succes: true, msg: "Carrito creado con exito", cartID: allCarts.length})
-// })
-
-// routerCarrito.delete('/', async (req, res)=>{
-//     await carrito.deteleAll();
-//     res.json({succes: true, msg: "Se eliminaron todos los carritos"})
-// })
-
-
-
 app.get('/api/carrito', getCarrito);
 
 app.post('/api/carrito/:id', postProductCart)
 
 app.post('/api/newCarrito/:id',  postActualizarCarrito)
 
-// routerCarrito.post('/:id/productos/:id_prod' , async (req, res)=>{
-//         const {id, id_prod} = req.params;
-//         const productoPedido = await producto.getById(id_prod);
-//         if (productoPedido != null) {
-//             const allCarts = await carrito.getAll();
-//             const cartPedido = allCarts.find((item) => item.id === id);
-//             const newProductList = [...cartPedido.productos, productoPedido];
-//             carrito.updateCartById(id, cartPedido.timestamp, newProductList);
-//             res.json({succes: true, msg: "Producto añadido al carrito!"})
-//         } else {
-//             res.json({error: true, msg: "Producto no encontrado"})
-//         }
-// })
+app.post('/finalizarCompra', postFinalizarCompra)
 
-routerCarrito.delete('/:id/productos/:id_prod' , async (req, res)=>{
-    const {id, id_prod} = req.params;
-    const allCarts = await carrito.getAll();
-    const cartPedido = allCarts.find((item) => item.id === id);
-    const newCarrito = cartPedido.productos.filter((item) => item.id !== id_prod);
-    if (newCarrito.length === cartPedido.productos.length) {
-        res.json({error: true, msg: "Producto no encontrado en el carrito"})
-    }else{
-        carrito.updateCartById(cartPedido.id, cartPedido.timestamp, newCarrito);
-        res.json({succes: true, msg: "Producto eliminado con exito al carrito!"})
-    }
-})
 
 app.use('*', (req, res)=>{
     loggerWarn.warn({metodo: req.method, descripcion: "Ruta no implementada"});

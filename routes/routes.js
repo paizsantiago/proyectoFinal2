@@ -1,4 +1,5 @@
 const Usuarios = require("../models/usuario");
+const { mailCompraFinalizada } = require("../nodemailer/nodemailer");
 const {resultado} = require("../src/daos/index")
 const producto = new resultado.producto();
 const carrito = new resultado.carrito();
@@ -101,6 +102,18 @@ const postActualizarCarrito = async (req, res)=>{
     res.redirect('/api/carrito');
 }
 
+const postFinalizarCompra = async (req, res) =>{
+    const vaciarCarrito = [];
+    const username = req.user.email;
+    const user = await Usuarios.find({email: username});
+    const carritoUserID = user[0].carrito._id; 
+    const carritoUserTimestamp = user[0].carrito.timestamp; 
+    const carritoDB = await carrito.getById(carritoUserID);
+    mailCompraFinalizada(user[0], carritoDB.productos);
+    await carrito.updateCartById(carritoUserID, carritoUserTimestamp, vaciarCarrito);
+    res.redirect('/');
+}
+
 module.exports ={
     getHome,
     getProductos,
@@ -111,5 +124,6 @@ module.exports ={
     getInfoUser,
     getCarrito,
     postProductCart,
-    postActualizarCarrito
+    postActualizarCarrito,
+    postFinalizarCompra
 }
