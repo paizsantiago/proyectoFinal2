@@ -49,7 +49,7 @@ const mailCompraFinalizada= async (user, carrito) =>{
         to: TEST_MAIL,
         subject: 'Nuevo pedido',
         html: `<h1>Nuevo pedido de ${user.nombre}, email: ${user.email}</h1>
-                <h2>Orden de productos: ${productos.length} ${productos}</h2>
+                <h2>Orden de productos: ${carrito.length} ${productos}</h2>
                 `
             }
 

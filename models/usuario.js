@@ -6,7 +6,7 @@ const UsuarioSchema = new mongoose.Schema({
     password: { type: String, required: true, max:100},
     direccion: {type: String, required: true, max:100},
     edad: {type: Number, required: true, max:100},
-    telefono: {type: Number, required: true},
+    telefono: {type: String, required: true},
     avatar: {type: String, required: true},
     carrito:{type: Object}
 })

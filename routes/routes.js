@@ -1,6 +1,7 @@
 const Usuarios = require("../models/usuario");
 const { mailCompraFinalizada } = require("../nodemailer/nodemailer");
-const {resultado} = require("../src/daos/index")
+const {resultado} = require("../src/daos/index");
+const { sendMsg, sendWspp } = require("../twilio/twilio");
 const producto = new resultado.producto();
 const carrito = new resultado.carrito();
 
@@ -111,6 +112,8 @@ const postFinalizarCompra = async (req, res) =>{
     const carritoDB = await carrito.getById(carritoUserID);
     mailCompraFinalizada(user[0], carritoDB.productos);
     await carrito.updateCartById(carritoUserID, carritoUserTimestamp, vaciarCarrito);
+    sendMsg(user[0].telefono);
+    sendWspp(user[0], carritoDB.productos);
     res.redirect('/');
 }
 
