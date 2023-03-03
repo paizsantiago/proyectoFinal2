@@ -16,7 +16,7 @@ html
                     p=`precio: $${item.precio}`
                     p=`descripcion: ${item.descripcion}`
                     img(class='product-img', src=item.thumbnail)
-                    form(action=`/api/newCarrito/${item._id}` method="POST") 
+                    form(action=`/api/carrito/newCarrito/${item._id}` method="POST") 
                         input(type="submit" value="Eliminar del carrito")
                 div 
                     form(action="/finalizarCompra" method="POST") 

@@ -1,5 +1,5 @@
 const {connectMG}= require('../connection')
-const { loggerError } = require('../../logger/loggerConfig');
+const { loggerError } = require('../../Config/loggerConfig');
 
 class ContenedorMongoose {
     constructor(collectionDB){
