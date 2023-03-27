@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "echo \"Error: no test specified\" && exit 1",
-    "test": "nodemon server.js"
+    "start": "nodemon server.js",
+    "test": "mocha ./src/test/test.js"
   },
   "repository": {},
   "keywords": [],
@@ -32,6 +32,10 @@
     "winston": "^3.8.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.20"
+    "@faker-js/faker": "^7.6.0",
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
+    "nodemon": "^2.0.20",
+    "supertest": "^6.3.3"
   }
 }

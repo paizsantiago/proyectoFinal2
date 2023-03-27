@@ -8,10 +8,10 @@ function checkAuth(req, res, next) {
   }
 }
 
-const homeController =  (req, res) => {
-    const request = req;
-    const user =  getHome(request);
-    res.render('home.pug', { user });
+const homeController = (req, res) => {
+  const request = req;
+  const user = getHome(request);
+  res.render('home.pug', { user });
 };
 
 const getLoginController = (req, res) => {
@@ -31,12 +31,12 @@ const getRegisterController = (req, res) => {
 };
 
 const getLoginErrorController = (req, res) => {
-    res.send("Error al loguearse");
-}
+  res.send('Error al loguearse');
+};
 
-const getRegisterErrorController =  (req, res) =>{
-    res.send("Error al registrarse");
-}
+const getRegisterErrorController = (req, res) => {
+  res.send('Error al registrarse');
+};
 
 const postLogoutController = (req, res) => {
   req.session.destroy((error) => {
@@ -53,4 +53,13 @@ const infoController = async (req, res) => {
   res.render('infoUser.pug', { infoUser: user });
 };
 
-module.exports = { checkAuth, homeController, getLoginController, getRegisterController, postLogoutController, infoController, getLoginErrorController, getRegisterErrorController}
+module.exports = {
+  checkAuth,
+  homeController,
+  getLoginController,
+  getRegisterController,
+  postLogoutController,
+  infoController,
+  getLoginErrorController,
+  getRegisterErrorController,
+};

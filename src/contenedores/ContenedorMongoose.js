@@ -13,7 +13,7 @@ class ContenedorMongoose {
             objetoAgregar.save();
             return objetoAgregar;
         } catch (error) {
-            logger.error({msg: `${error}`})
+            loggerError.error({msg: `${error}`})
         }
     }
 
@@ -22,7 +22,7 @@ class ContenedorMongoose {
             const allProducts = await this.collectionDB.find({});
             return allProducts;
         } catch (error) {
-            logger.error({msg: `${error}`})
+            loggerError.error({msg: `${error}`})
         }
     }
 
@@ -31,7 +31,7 @@ class ContenedorMongoose {
             const productoPedido = await this.collectionDB.find({ _id: idNumber});
             return productoPedido[0];
         } catch (error) {
-            logger.error({msg: `${error}`})
+            loggerError.error({msg: `${error}`})
         }
     }
 
@@ -53,7 +53,7 @@ class ContenedorMongoose {
         )
         return true;
        } catch (error) {
-        logger.error({msg: `${error}`})
+        loggerError.error({msg: `${error}`})
         return false;
        }
     }
@@ -74,7 +74,7 @@ class ContenedorMongoose {
                 return newCarrito;
             }
         } catch (error) {
-            logger.error({msg: `${error}`})
+            loggerError.error({msg: `${error}`})
         }
     };
 
@@ -84,7 +84,7 @@ class ContenedorMongoose {
             await this.collectionDB.deleteOne({_id: id});
             return this.collectionDB.find({});
         } catch (error) {
-            logger.error({msg: `${error}`})
+            loggerError.error({msg: `${error}`})
         }
     }
 }

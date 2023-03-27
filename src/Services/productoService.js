@@ -1,4 +1,4 @@
-const { resultado } = require('../src/daos/index');
+const { resultado } = require('../../src/daos/index');
 const producto = new resultado.producto();
 
 const getProductos = async () => {
@@ -16,7 +16,20 @@ const getProductoId = async (req) => {
     return productoPedido;
 };
 
+const postProduct = async (req) => {
+      try {
+        const { body } = req;
+        const timestamp = new Date();
+        const newProduct = { ...body, timestamp };
+        await producto.save(newProduct);
+        return newProduct;
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
 module.exports = {
   getProductoId,
-  getProductos
+  getProductos,
+  postProduct
 }

@@ -1,11 +1,17 @@
-const { getCarrito, postActualizarCarrito, postFinalizarCompra, postProductCart} = require('../Services/carritoService')
+const {
+  getCarrito,
+  postActualizarCarrito,
+  postFinalizarCompra,
+  postProductCart,
+} = require('../Services/carritoService');
 
 const getCarritoController = async (req, res) => {
   const carrito = await getCarrito(req);
-  res.render('carrito.pug', {
-    productsExist: carrito.productsExist,
-    products: carrito.productsCart,
-  });
+  // res.render('carrito.pug', {
+  //   productsExist: carrito.productsExist,
+  //   products: carrito.productsCart,
+  // });
+  res.json(carrito);
 };
 
 const postCarritoController = async (req, res) => {
@@ -27,10 +33,9 @@ const postFinalizarController = async (req, res) => {
   res.redirect('/');
 };
 
-
 module.exports = {
-    getCarritoController,
-    postCarritoController,
-    deleteCarritoController,
-    postFinalizarController
-}
+  getCarritoController,
+  postCarritoController,
+  deleteCarritoController,
+  postFinalizarController,
+};

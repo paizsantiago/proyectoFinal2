@@ -1,1 +1,11 @@
 {"level":"error","message":{"msg":"ReferenceError: dwadasdaw is not defined"}}
+{"level":"error","message":{"msg":"CastError: Cast to ObjectId failed for value \"finalizarCompra\" (type string) at path \"_id\" for model \"productos\""}}
+{"level":"error","message":{"msg":"CastError: Cast to ObjectId failed for value \"finalizarCompra\" (type string) at path \"_id\" for model \"productos\""}}
+{"level":"error","message":{"msg":"CastError: Cast to ObjectId failed for value \"finalizarCompra\" (type string) at path \"_id\" for model \"productos\""}}
+{"level":"error","message":{"msg":"CastError: Cast to ObjectId failed for value \"finalizarCompra\" (type string) at path \"_id\" for model \"productos\""}}
+{"level":"error","message":{"msg":"CastError: Cast to ObjectId failed for value \"finalizarCompra\" (type string) at path \"_id\" for model \"productos\""}}
+{"level":"error","message":{"msg":"CastError: Cast to ObjectId failed for value \"finalizarCompra\" (type string) at path \"_id\" for model \"productos\""}}
+{"level":"error","message":{"msg":"CastError: Cast to ObjectId failed for value \"finalizarCompra\" (type string) at path \"_id\" for model \"productos\""}}
+{"level":"error","message":{"msg":"CastError: Cast to ObjectId failed for value \"finalizarCompra\" (type string) at path \"_id\" for model \"productos\""}}
+{"level":"error","message":{"msg":"CastError: Cast to ObjectId failed for value \"finalizarCompra\" (type string) at path \"_id\" for model \"productos\""}}
+{"level":"error","message":{"msg":"CastError: Cast to ObjectId failed for value \"finalizarCompra\" (type string) at path \"_id\" for model \"productos\""}}

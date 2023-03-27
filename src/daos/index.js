@@ -4,10 +4,7 @@ const {ProductosDaoMongoose} = require('./productos/ProductosDaoMongoose');
 const {CarritosDaoMongoose} = require('./carritos/CarritosDaoMongoose');
 const {ProductosDaoMemoria} = require('./productos/ProductosDaoMemoria');
 const {CarritosDaoMemoria} = require('./carritos/CarritosDaoMemoria');
-const {ProductosDaoFirebase} = require('./productos/ProductosDaoFirebase');
-const {CarritosDaoFirebase} = require('./carritos/CarritosDaoFirebase');
 
-// require('dotenv').config()
 const { config } = require('dotenv');
 
 config()
@@ -41,16 +38,6 @@ const instancias = [
     {
         nombre: CarritosDaoMemoria,
         id: 'memoria',
-        descripcion: 'carrito'
-    },
-    {
-        nombre: ProductosDaoFirebase,
-        id: 'firebase',
-        descripcion: 'producto'
-    },
-    {
-        nombre: CarritosDaoFirebase,
-        id: 'firebase',
         descripcion: 'carrito'
     }
 ]

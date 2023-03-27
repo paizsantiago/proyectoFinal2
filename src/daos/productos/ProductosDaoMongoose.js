@@ -7,7 +7,7 @@ const productsSchema = new Schema({
     descripcion: {type: String, required: true, max:100},   
     codigo: {type: String, required: true, max:100},   
     thumbnail: {type: String, required: true, max:100},   
-    precio: {type: Number, required: true, max:100},   
+    precio: {type: Number, required: true},   
     stock: {type: Number, required: true, max:100},   
     timestamp: {type: Date, required: true},    
 });

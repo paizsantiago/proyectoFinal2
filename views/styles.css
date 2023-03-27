@@ -1,3 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
 a{
     padding: 1rem;
+}
+
+.titleLogin{
+    padding-bottom: 1rem;
+    font-size: 3.5rem;
+}
+
+.contenedorPrincipalLogin{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+}
+
+.contenedorLogin{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 100%;
+}
+
+.formLogin{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.formLogin input, .formLogin label{
+    width: 100%;
+}
+
+input{
+    background-color: rgba(245, 245, 245, 0.145);
+    border: none;
+    border-bottom: 1px solid rgba(152, 12, 152, 0.763);
+    border-radius: 2px;
+    padding: .5rem;
+}
+
+label{
+    font-weight: 600;
+    color: rgba(63, 60, 60, 0.631);
+    padding: 1.2rem 0 1.2rem 0;
+}
+
+.buttonIniciar{
+    border-radius: 20px;
+    color: white;
+    background-color: rgba(152, 12, 152, 0.763);
+    font-size: 1.2rem;
+    padding: .7rem;
+    cursor: pointer;
+    margin-top: 3rem;
+}
+
+.buttonIniciar:hover{
+    background-color: rgb(111, 9, 111);
+}
+
+.principalTitle{
+    width: 50%;
+    background-image: linear-gradient(to top, black, rgba(0, 0, 0, 0.462)),url("https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/rm251-mind-16-a_1_2.jpg?w=1200&h=1200&dpr=1&fit=clip&crop=default&fm=jpg&q=75&vib=3&con=3&usm=15&cs=srgb&bg=F4F4F3&ixlib=js-2.2.1&s=233acd0fb993545b29ecb560d8396635");
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tecnoGamer{
+    font-size: 7rem;
+    color: rgba(152, 12, 152, 0.763);
+    text-shadow:0 0 5px rgba(152, 12, 152, 0.763),0 0 30px rgba(152, 12, 152, 0.763);
+}
+
+.infoExtraLogin{
+    margin-top: 4rem;
+}
+
+.infoExtraLogin p{
+    font-size: 1.2rem;
+}
+
+.infoExtraLogin a{
+    text-decoration: none;
+    color: rgba(105, 10, 105, 0.763);
+    font-size: 1.2rem;
+    margin: .5rem;
+    padding-top: 2rem;
 }
