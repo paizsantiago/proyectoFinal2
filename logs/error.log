@@ -9,3 +9,8 @@
 {"level":"error","message":{"msg":"CastError: Cast to ObjectId failed for value \"finalizarCompra\" (type string) at path \"_id\" for model \"productos\""}}
 {"level":"error","message":{"msg":"CastError: Cast to ObjectId failed for value \"finalizarCompra\" (type string) at path \"_id\" for model \"productos\""}}
 {"level":"error","message":{"msg":"CastError: Cast to ObjectId failed for value \"finalizarCompra\" (type string) at path \"_id\" for model \"productos\""}}
+{"level":"error","message":{"msg":"CastError: Cast to ObjectId failed for value \"postProduct\" (type string) at path \"_id\" for model \"productos\""}}
+{"level":"error","message":{"msg":"CastError: Cast to ObjectId failed for value \"postProduct\" (type string) at path \"_id\" for model \"productos\""}}
+{"level":"error","message":{"msg":"CastError: Cast to ObjectId failed for value \"postProduct\" (type string) at path \"_id\" for model \"productos\""}}
+{"level":"error","message":{"msg":"CastError: Cast to ObjectId failed for value \"postProduct\" (type string) at path \"_id\" for model \"productos\""}}
+{"level":"error","message":{"msg":"CastError: Cast to ObjectId failed for value \"postProduct\" (type string) at path \"_id\" for model \"productos\""}}

@@ -1,0 +1,27 @@
+html
+    head
+        title='Sube tu producto'
+        style
+            include styles.css
+    body
+        nav 
+            a(href="/") Home 
+            a(href="/api/productos") Productos  
+            a(href="/api/carrito") Carrito  
+        div(class="mainPostProduct") 
+            h1(class="titlePostProducto")="Sube tu producto"
+            div(class="formProducto")
+                form(action="/api/productos" method="POST") 
+                    label(for="nombre") Nombre del producto
+                    input(type="text" name="nombre")
+                    label(for="descripcion") Descripcion
+                    input(type="text" name="descripcion")
+                    label(for="codigo") Código
+                    input(type="text" name="codigo")
+                    label(for="precio") Precio
+                    input(type="number" name="precio")
+                    label(for="stock") Stock
+                    input(type="number" name="stock")
+                    label(for="thumbnail") Url de la imagen
+                    input(type="text" name="thumbnail")
+                    button Subir producto 

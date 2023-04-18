@@ -3,8 +3,8 @@ const Strategy = require("passport-local");
 const bcrypt = require("bcrypt");
 const Usuarios = require("../models/usuario")
 const { mailRegister } = require('./nodemailer');
-const { resultado } = require('../src/daos/index');
-const carrito = new resultado.carrito();
+const {DAO} = require('../src/daos/factory');
+const { validarUsuario } = require("./validacion");
 
 function isValidPassword(user, password) {
     return bcrypt.compareSync(password, user.password);
@@ -54,7 +54,8 @@ function isValidPassword(user, password) {
           }
   
           const timestamp = Date.now();
-          const idCarrito = await carrito.save({ timestamp });
+          validarUsuario(req.body, true);
+          const idCarrito = await DAO.carrito.save({ timestamp });
   
           const newUser = {
             nombre: req.body.nombre,

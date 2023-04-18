@@ -1,6 +1,4 @@
-const { resultado } = require('../daos/index');
-const carrito = new resultado.carrito();
-const producto = new resultado.producto();
+const {DAO} = require('../daos/factory');
 const Usuarios = require('../../models/usuario');
 const { sendMsg, sendWspp } = require('../../Config/twilio');
 const { mailCompraFinalizada } = require('../../Config/nodemailer');
@@ -9,7 +7,7 @@ const getCarrito = async (req) => {
   const username = req.user.email;
   const user = await Usuarios.find({ email: username });
   const idCart = user[0].carrito._id;
-  const carritoUsuario = await carrito.getById(idCart);
+  const carritoUsuario = await DAO.carrito.getById(idCart);
   const productsCart = carritoUsuario.productos;
   productsCart.length > 0 ? (productsExist = true) : (productsExist = false);
   const carritoFinal = { productsCart, productsExist };
@@ -22,11 +20,11 @@ const postProductCart = async (req) => {
   const user = await Usuarios.find({ email: username });
   const carritoUserID = user[0].carrito._id;
   const carritoUserTimestamp = user[0].carrito.timestamp;
-  const carritoDB = await carrito.getById(carritoUserID);
+  const carritoDB = await DAO.carrito.getById(carritoUserID);
   let newProductos = carritoDB.productos;
-  const productoPedido = await producto.getById(id);
+  const productoPedido = await DAO.productos.getById(id);
   newProductos = [...newProductos, productoPedido];
-  await carrito.updateCartById(
+  await DAO.carrito.updateCartById(
     carritoUserID,
     carritoUserTimestamp,
     newProductos
@@ -40,13 +38,13 @@ const postActualizarCarrito = async (req) => {
   const user = await Usuarios.find({ email: username });
   const carritoUserID = user[0].carrito._id;
   const carritoUserTimestamp = user[0].carrito.timestamp;
-  const carritoDB = await carrito.getById(carritoUserID);
+  const carritoDB = await DAO.carrito.getById(carritoUserID);
   let carritoActualizado;
   let newProductos = carritoDB.productos;
   newProductos.length === 1
     ? (carritoActualizado = [])
     : (carritoActualizado = newProductos.find((item) => item._id !== id));
-  await carrito.updateCartById(
+  await DAO.carrito.updateCartById(
     carritoUserID,
     carritoUserTimestamp,
     carritoActualizado
@@ -60,10 +58,9 @@ const postFinalizarCompra = async (req) => {
   const user = await Usuarios.find({ email: username });
   const carritoUserID = user[0].carrito._id;
   const carritoUserTimestamp = user[0].carrito.timestamp;
-  const carritoDB = await carrito.getById(carritoUserID);
-  console.log(carritoDB);
+  const carritoDB = await DAO.carrito.getById(carritoUserID);
   mailCompraFinalizada(user[0], carritoDB.productos);
-  await carrito.updateCartById(
+  await DAO.carrito.updateCartById(
     carritoUserID,
     carritoUserTimestamp,
     vaciarCarrito

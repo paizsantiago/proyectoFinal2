@@ -30,7 +30,6 @@ const mailRegister = async (user) =>{
 
     try {
         const info = await transporter.sendMail(mailOptions);
-        console.log(info)
     } catch (error) {
         console.log(error)
     }
@@ -55,7 +54,6 @@ const mailCompraFinalizada= async (user, carrito) =>{
 
     try {
         const info = await transporter.sendMail(mailOptions);
-        console.log(info)
     } catch (error) {
         console.log(error)
     }

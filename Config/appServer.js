@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 require('./passport');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
-const mongoURL = process.env.MONGOURL;
+const mongoURL = process.env.MONGO_URL;
 const http = require("http")
 const passport = require("passport")
 

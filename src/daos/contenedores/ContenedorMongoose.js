@@ -1,5 +1,5 @@
-const {connectMG}= require('../connection')
-const { loggerError } = require('../../Config/loggerConfig');
+const { loggerError } = require('../../../Config/loggerConfig');
+const {connectMG} = require('../../connectionDBMongoAtlas');
 
 class ContenedorMongoose {
     constructor(collectionDB){
@@ -89,4 +89,4 @@ class ContenedorMongoose {
     }
 }
 
-module.exports = ContenedorMongoose;
+module.exports = {ContenedorMongoose};

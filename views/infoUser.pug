@@ -7,11 +7,15 @@ html
         nav 
             a(href="/") Home 
             a(href="/api/productos") Productos
+            a(href="/api/productos/postProduct") Subir producto
             a(href="/api/carrito") Carrito 
-        h1="Informacion del usuario"
-        div
-            h2=`Nombre: ${infoUser.nombre}`
-            h2=`Email: ${infoUser.email}`
-            h2=`Dirección: ${infoUser.direccion}`
-            h2=`Edad: ${infoUser.edad}`
-            h2=`Telefono: ${infoUser.telefono}`
+        div(class="mainInfo")
+            h1(class="tituloInfo")="Informacion del usuario"
+            div(class="user")
+                div(class="avatar") 
+                    p=`Nombre: ${infoUser.nombre}`
+                    img(src=`${infoUser.avatar}`, alt="" class="userAvatar")
+                p=`Email: ${infoUser.email}`
+                p=`Dirección: ${infoUser.direccion}`
+                p=`Edad: ${infoUser.edad}`
+                p=`Telefono: ${infoUser.telefono}`

@@ -12,9 +12,8 @@ const sendMsg = async (num) =>{
         const message = await client.messages.create({
             body: "Tu pedido fue recibido y esta en proceso",
             from: twilioNumber,
-            to: `${num}`
+            to: `+549${num}`
         })
-        console.log(message)
     } catch (error) {
         console.log(error)
     }
@@ -30,7 +29,6 @@ const sendWspp= async (user, carrito) =>{
             from: 'whatsapp:+14155238886',
             to: 'whatsapp:+5493454957242'
         })
-        console.log(message)
     } catch (error) {
         console.log(error)
     }

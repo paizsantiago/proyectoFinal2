@@ -1,4 +1,5 @@
-const { getHome, getInfoUser } = require('../Services/usuarioService')
+const { getLastProducts } = require('../Services/productoService');
+const { getHome, getInfoUser } = require('../Services/usuarioService');
 
 function checkAuth(req, res, next) {
   if (req.isAuthenticated()) {
@@ -8,10 +9,11 @@ function checkAuth(req, res, next) {
   }
 }
 
-const homeController = (req, res) => {
+const homeController = async (req, res) => {
   const request = req;
   const user = getHome(request);
-  res.render('home.pug', { user });
+  const lastProducts = await getLastProducts();
+  res.render('home.pug', { user: user , lastProducts: lastProducts});
 };
 
 const getLoginController = (req, res) => {
@@ -31,11 +33,11 @@ const getRegisterController = (req, res) => {
 };
 
 const getLoginErrorController = (req, res) => {
-  res.send('Error al loguearse');
+  res.render("errorLogin.pug");
 };
 
 const getRegisterErrorController = (req, res) => {
-  res.send('Error al registrarse');
+  res.render("errorRegister.pug");
 };
 
 const postLogoutController = (req, res) => {

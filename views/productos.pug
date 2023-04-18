@@ -6,17 +6,19 @@ html
     body
         nav 
             a(href="/") Home 
+            a(href="/api/productos/postProduct") Subir producto
             a(href="/api/carrito") Carrito 
-        h1="Listado de productos"
-        div
-        if productsExist 
-            for item in products
-                div(class="producto")
-                    p=item.nombre 
-                    p=`precio: $${item.precio}`
-                    p=`descripcion: ${item.descripcion}`
-                    img(class='product-img', src=item.thumbnail)
-                    form(action=`/api/carrito/${item._id}` method="POST") 
-                        input(type="submit" value="Añadir al carrito")  
-        else 
-            h2= "Ups, no se han encontrado productos"
+        h1(class="titleAP")="Todos nuestros productos"
+        div(class="listProduct")
+            if productsExist 
+                for item in products
+                    div(class="productoList")
+                        div(class="containerImagen")
+                            img(class='product-img', src=item.thumbnail)
+                        p=item.nombre 
+                        h4=`$${item.precio}`
+                        div 
+                            form(action=`/api/productos/${item._id}` method="GET") 
+                                button Ver más
+            else 
+                h2= "Ups, no se han encontrado productos"

@@ -1,17 +1,29 @@
 html
     head
-        title='login'
+        title='Home'
         style
             include styles.css
     body
         nav 
             a(href="/api/productos") Productos  
+            a(href="/api/productos/postProduct") Subir producto
             a(href="/api/carrito") Carrito  
-        h1="Home"
-            h1=`Bienvenido ${user.username}`
-            form(action="/infoUser" method="GET") 
-                button Informacion del usuario
-            form(action="/logout" method="POST") 
-                button Cerrar sesion
+        div(class="mainHome")
+            div(class="bienvenida")
+                h1=`¡Nos alegra verte, ${user.username}!`
+                div(class="buttonsUser")
+                    form(action="/infoUser" method="GET") 
+                        button Informacion del usuario
+                    form(action="/logout" method="POST") 
+                        button Cerrar sesion
+            h2(class="titleLP")="Nuestros últimos productos"
+            div(class="lastProducts")
+                for item in lastProducts
+                    div(class="producto")
+                        div(class="productHome")
+                            img(class='product-img', src=item.thumbnail)
+                        p=item.nombre 
+                        h4=`$${item.precio}`
+
 
         

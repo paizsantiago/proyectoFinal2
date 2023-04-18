@@ -1,20 +1,27 @@
 html
     head
-        title='register'
+        title='Register'
         style
             include styles.css
     body
-        h1="Registrate gratis"
-        div
+        h1(class="titleRegister")="Registrate gratis"
+        div(class="formRegister")
             form(action="/register" method="POST") 
-                input(type="text" name="nombre" placeholder="nombre")
-                input(type="text" name="username" placeholder="email")
-                input(type="password" name="password" placeholder="contraseña")
-                input(type="text" name="direccion" placeholder="direccion")
-                input(type="number" name="edad" placeholder="edad")
-                input(type="tel" name="telefono" placeholder="telefono")
-                input(type="text" name="avatar" placeholder="url avatar")
-                input(type="submit" value="registrarse")
-        div 
-            p=`Ya tienes cuenta?`
-            a(href="/login") Iniciar sesion 
+                label(for="nombre") Nombre 
+                input(type="text" name="nombre")
+                label(for="email") Email  
+                input(type="text" name="username")
+                label(for="password") Contraseña 
+                input(type="password" name="password")
+                label(for="direccion") Direccion 
+                input(type="text" name="direccion")
+                label(for="edad") Edad 
+                input(type="number" name="edad")
+                label(for="telefono") Telefono 
+                input(type="string" name="telefono")
+                label(for="avatar") Url imagen 
+                input(type="text" name="avatar")
+                button Registrarse 
+            div(class="moreInfoRegister")
+                p=`Ya tienes cuenta?`
+                a(href="/login") Iniciar sesion 

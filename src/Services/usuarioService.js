@@ -16,7 +16,6 @@ const getInfoUser = async (req) => {
         telefono,
         avatar,
     };
-    console.log(infoUser)
     return infoUser;
 };
 

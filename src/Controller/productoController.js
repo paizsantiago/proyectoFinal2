@@ -2,28 +2,36 @@ const { getProductoId, getProductos, postProduct } = require('../Services/produc
 
 const getProductoController = async (req, res) => {
   const producto = await getProductoId(req);
-  res.json(producto);
+  res.render('productoUnico.pug', {producto: producto})
 };
 
 const getAllProductosController = async (req, res) => {
   try {
     const result = await getProductos();
-    // res.render('productos.pug', {
-    //   productsExist: result.productsExist,
-    //   products: result.products,
-    // });
-    res.json(result.products)
+    res.render('productos.pug', {
+      productsExist: result.productsExist,
+      products: result.products,
+    });
   } catch (error) {
     console.log(error)
   }
 };
 
+const getPostProductController = (req, res) =>{
+    res.render("postProducto.pug");
+}
+
 const postProductController = async (req, res) =>{
-      await postProduct(req);
-      res.json({ msg: "Producto añadido con exito" })
+      try {
+        await postProduct(req);
+        res.redirect('/api/productos')
+      } catch (error) {
+        console.log(error)
+      }
 }
 module.exports = { 
     getProductoController, 
     getAllProductosController,
-    postProductController
+    postProductController,
+    getPostProductController
 }

@@ -1,6 +1,4 @@
-
 const { Schema , model } = require('mongoose');
-const ContenedorMongoose = require('../../contenedores/ContenedorMongoose')
 
 const productsSchema = new Schema({
     nombre: {type: String, required: true, max:100},   
@@ -12,13 +10,6 @@ const productsSchema = new Schema({
     timestamp: {type: Date, required: true},    
 });
 
-const productosDB = model('productos', productsSchema);
+const ProductosDB = model('productos', productsSchema);
 
-
-class ProductosDaoMongoose extends ContenedorMongoose{
-    constructor(){
-        super(productosDB);
-    }
-}
-
-module.exports = {ProductosDaoMongoose};
+module.exports = {ProductosDB};

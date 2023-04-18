@@ -1,0 +1,21 @@
+html
+    head
+        title='Productos'
+        style
+            include styles.css
+    body
+        nav 
+            a(href="/") Home 
+            a(href="/api/productos") Productos 
+            a(href="/api/productos/postProduct") Subir producto
+            a(href="/api/carrito") Carrito 
+        div(class="viewProduct")
+            div(class="productInfo")
+                h1=`${producto.nombre}`
+                p=`${producto.descripcion}` 
+                p=`Codigo: ${producto.codigo}` 
+            div(class="extraInfo") 
+                img(class='product-img', src=producto.thumbnail)
+                p=`$${producto.precio}`
+                form(action=`/api/carrito/${producto ._id}` method="POST") 
+                    button Agregar al carrito 

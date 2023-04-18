@@ -7,11 +7,10 @@ const {
 
 const getCarritoController = async (req, res) => {
   const carrito = await getCarrito(req);
-  // res.render('carrito.pug', {
-  //   productsExist: carrito.productsExist,
-  //   products: carrito.productsCart,
-  // });
-  res.json(carrito);
+  res.render('carrito.pug', {
+    productsExist: carrito.productsExist,
+    products: carrito.productsCart,
+  });
 };
 
 const postCarritoController = async (req, res) => {
