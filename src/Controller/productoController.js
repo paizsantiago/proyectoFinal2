@@ -13,7 +13,7 @@ const getAllProductosController = async (req, res) => {
       products: result.products,
     });
   } catch (error) {
-    console.log(error)
+    loggerError.error({msg: `${error}`})
   }
 };
 
@@ -26,7 +26,7 @@ const postProductController = async (req, res) =>{
         await postProduct(req);
         res.redirect('/api/productos')
       } catch (error) {
-        console.log(error)
+        loggerError.error({msg: `${error}`})
       }
 }
 module.exports = { 

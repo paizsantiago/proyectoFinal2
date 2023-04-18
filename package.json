@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "test": "mocha ./src/test/test.js"
+    "start": "node server.js",
+    "test": "mocha ./src/test/test.js",
+    "dev": "nodemon server.js"
   },
   "repository": {},
   "keywords": [],

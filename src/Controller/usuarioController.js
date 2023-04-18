@@ -1,5 +1,6 @@
 const { getLastProducts } = require('../Services/productoService');
 const { getHome, getInfoUser } = require('../Services/usuarioService');
+const { loggerError } = require('../../Config/loggerConfig')
 
 function checkAuth(req, res, next) {
   if (req.isAuthenticated()) {
@@ -10,10 +11,14 @@ function checkAuth(req, res, next) {
 }
 
 const homeController = async (req, res) => {
-  const request = req;
-  const user = getHome(request);
-  const lastProducts = await getLastProducts();
-  res.render('home.pug', { user: user , lastProducts: lastProducts});
+  try {
+    const request = req;
+    const user = getHome(request);
+    const lastProducts = await getLastProducts();
+    res.render('home.pug', { user: user , lastProducts: lastProducts});
+  } catch (error) {
+    loggerError.error({msg: `${error}`})
+  }
 };
 
 const getLoginController = (req, res) => {

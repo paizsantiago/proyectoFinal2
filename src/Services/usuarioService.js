@@ -1,22 +1,32 @@
+const { loggerError } = require('../../Config/loggerConfig')
+
 const getHome = (req) => {
-    const { nombre } = req.user;
-    const user = { username: nombre };
-    return user;
+    try {
+        const { nombre } = req.user;
+        const user = { username: nombre };
+        return user;
+    } catch (error) {
+        loggerError.error({msg: `${error}`})
+    }
 };
 
 const getInfoUser = async (req) => {
-    const { nombre, email, password, direccion, edad, telefono, avatar } =
+    try {
+        const { nombre, email, password, direccion, edad, telefono, avatar } =
         req.user;
-    const infoUser = {
-        nombre,
-        email,
-        password,
-        direccion,
-        edad,
-        telefono,
-        avatar,
-    };
-    return infoUser;
+        const infoUser = {
+            nombre,
+            email,
+            password,
+            direccion,
+            edad,
+            telefono,
+            avatar,
+        };
+        return infoUser;
+    } catch (error) {
+        loggerError.error({msg: `${error}`})
+    }
 };
 
 module.exports = { 
