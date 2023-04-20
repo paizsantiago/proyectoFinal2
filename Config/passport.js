@@ -54,7 +54,10 @@ function isValidPassword(user, password) {
           }
   
           const timestamp = Date.now();
-          validarUsuario(req.body, true);
+          const prueba = validarUsuario(req.body, true);
+          if (prueba) {
+            return done(null, false);
+          }
           const idCarrito = await DAO.carrito.save({ timestamp });
   
           const newUser = {

@@ -2,6 +2,7 @@ const { getLastProducts } = require('../Services/productoService');
 const { getHome, getInfoUser } = require('../Services/usuarioService');
 const { loggerError } = require('../../Config/loggerConfig')
 
+
 function checkAuth(req, res, next) {
   if (req.isAuthenticated()) {
     next();

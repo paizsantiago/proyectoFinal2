@@ -14,3 +14,6 @@
 {"level":"error","message":{"msg":"CastError: Cast to ObjectId failed for value \"postProduct\" (type string) at path \"_id\" for model \"productos\""}}
 {"level":"error","message":{"msg":"CastError: Cast to ObjectId failed for value \"postProduct\" (type string) at path \"_id\" for model \"productos\""}}
 {"level":"error","message":{"msg":"CastError: Cast to ObjectId failed for value \"postProduct\" (type string) at path \"_id\" for model \"productos\""}}
+{"level":"error","message":{"msg":"ValidationError: \"nombre\" is not allowed to be empty"}}
+{"level":"error","message":{"msg":"Error: Invalid login: 535 Authentication failed"}}
+{"level":"error","message":{"msg":"Error: Invalid login: 535 Authentication failed"}}

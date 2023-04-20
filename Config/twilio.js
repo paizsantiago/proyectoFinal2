@@ -1,5 +1,6 @@
 const twilio = require('twilio');
 require('dotenv').config()
+const {loggerError} = require('./loggerConfig')
 
 const accountSid = process.env.ACCOUNTSID;
 const authToken = process.env.AUTHTOKEN;
@@ -15,7 +16,7 @@ const sendMsg = async (num) =>{
             to: `+549${num}`
         })
     } catch (error) {
-        console.log(error)
+        loggerError.error({msg: `${error}`})
     }
 }   
 
@@ -30,7 +31,7 @@ const sendWspp= async (user, carrito) =>{
             to: 'whatsapp:+5493454957242'
         })
     } catch (error) {
-        console.log(error)
+        loggerError.error({msg: `${error}`})
     }
 }   
 

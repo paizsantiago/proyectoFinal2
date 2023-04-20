@@ -3,6 +3,7 @@ require('dotenv').config()
 const testmail = process.env.TESTMAIL;
 const password = process.env.PASSWORD;
 const TEST_MAIL = testmail;
+const {loggerError} = require('./loggerConfig')
 
 const transporter = nodemailer.createTransport({
     host: 'smtp.ethereal.email',
@@ -31,7 +32,7 @@ const mailRegister = async (user) =>{
     try {
         const info = await transporter.sendMail(mailOptions);
     } catch (error) {
-        console.log(error)
+        loggerError.error({msg: `${error}`})
     }
 
 }
@@ -55,7 +56,7 @@ const mailCompraFinalizada= async (user, carrito) =>{
     try {
         const info = await transporter.sendMail(mailOptions);
     } catch (error) {
-        console.log(error)
+        loggerError.error({msg: `${error}`})
     }
 
 }
